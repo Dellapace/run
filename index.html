@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plano de Treino | 10km</title>
+<title>Plano de Treino — 10km</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -791,10 +791,17 @@
     gap: 12px;
     cursor: pointer;
     transition: background 0.15s;
+    user-select: none;
+    border-radius: 4px;
+    margin: 0 -4px;
   }
 
   .gym-exercise-item:hover {
-    background: rgba(255,255,255,0.03);
+    background: rgba(184,71,255,0.05);
+  }
+
+  .gym-exercise-item:active {
+    transform: scale(0.99);
   }
 
   .gym-exercise-item:last-child {
@@ -1380,11 +1387,17 @@
     border-radius: 6px;
     padding: 3px 6px 3px 3px;
     margin: 0 -6px 0 -3px;
-    transition: background 0.15s;
+    transition: all 0.15s;
     user-select: none;
   }
 
-  .training-item:hover { background: rgba(255,255,255,0.03); }
+  #tab-corrida .training-item:hover { 
+    background: rgba(71,255,178,0.05);
+  }
+
+  .training-item:active {
+    transform: scale(0.99);
+  }
 
   /* progress bar no week-row */
   .week-progress {
@@ -1510,22 +1523,18 @@
 <!-- SPLASH SCREEN -->
 <div class="splash-screen" id="splash">
   <div class="splash-content">
-    <div class="splash-title">BEM<br>VINDO</div>
-    <div class="splash-subtitle">O que faremos hoje?</div>
+    <div class="splash-title">TREINO<br>COMPLETO</div>
+    <div class="splash-subtitle">Escolhe o teu plano</div>
     <div class="splash-options">
       <div class="splash-option run" data-plan="corrida">
-        <div class="splash-option run" onclick="closeSplash('corrida')">
-        <div class="splash-option-icon">⚡</div>
-        <div class="splash-option-title">RUN</div>
+        <div class="splash-option-icon">🏃</div>
+        <div class="splash-option-title">CORRIDA 10KM</div>
         <div class="splash-option-desc">14 semanas · 3x por semana · Prova 30 de Maio</div>
-          </div>
       </div>
       <div class="splash-option gym" data-plan="musculacao">
-        <div class="splash-option gym" onclick="closeSplash('musculacao')">
-        <div class="splash-option-icon">😈</div>
-        <div class="splash-option-title">GYM</div>
-        <div class="splash-option-desc">5x por semana · PRs editáveis · Optimizado para corrida</div>
-          </div>
+        <div class="splash-option-icon">💪</div>
+        <div class="splash-option-title">MUSCULAÇÃO</div>
+        <div class="splash-option-desc">6x por semana · PRs editáveis · Optimizado para corrida</div>
       </div>
     </div>
   </div>
@@ -2093,21 +2102,37 @@
 
 // ─── SPLASH SCREEN ───────────────────────────────────────────────────────────
 function initSplash() {
+  
   const splash = document.getElementById('splash');
-  if (!splash) return;
+  
+  if (!splash) {
+    
+    return;
+  }
   
   // Adiciona event listeners aos botões
   const options = splash.querySelectorAll('.splash-option');
-  options.forEach(option => {
+  
+  
+  if (options.length === 0) {
+    
+    return;
+  }
+  
+  options.forEach((option, index) => {
+    
     option.addEventListener('click', function() {
       const plan = this.getAttribute('data-plan');
-      console.log('Selecionado:', plan);
+      
+      
       
       // Esconde o splash
+      
       splash.style.opacity = '0';
       splash.style.pointerEvents = 'none';
       
       setTimeout(() => {
+        
         splash.style.display = 'none';
         
         // Troca para aba selecionada
@@ -2472,12 +2497,20 @@ function showToast(msg) {
 }
 
 // ─── INIT ────────────────────────────────────────────────────────────────────
-initSplash();
-renderPRCards();
-renderSimulator();
-initChecks();
-initGymChecks();
-renderGymPRs();
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('DOM pronto, inicializando...');
+  
+  // Aguarda um frame para garantir que CSS foi aplicado
+  requestAnimationFrame(() => {
+    initSplash();
+    renderPRCards();
+    renderSimulator();
+    initChecks();
+    initGymChecks();
+    renderGymPRs();
+    console.log('Tudo inicializado!');
+  });
+});
 
 // ─── TAB SWITCHING ───────────────────────────────────────────────────────────
 function switchTab(tab) {
@@ -2512,31 +2545,15 @@ function initGymChecks() {
     // Restaura estado
     if (gymChecks[id]) el.classList.add('done');
     
-    // CRÍTICO: Adiciona click handler APENAS ao checkbox, não ao item inteiro
-    const checkbox = el.querySelector('.gym-check-box');
-    if (checkbox) {
-      checkbox.addEventListener('click', (e) => {
-        e.stopPropagation();  // Previne propagação
-        toggleGymCheck(el, id);
-      });
-    }
+    // Click handler na LINHA INTEIRA
+    el.addEventListener('click', () => {
+      toggleGymCheck(el, id);
+    });
   });
   
   updateGymProgress();
 }
 
-  items.forEach(el => {
-    const id = el.dataset.gid;
-    
-    // Restore state
-    if (gymChecks[id]) el.classList.add('done');
-    
-    // Click handler
-    el.addEventListener('click', () => toggleGymCheck(el, id));
-  });
-  
-  updateGymProgress();
-}
 
 function toggleGymCheck(el, id) {
   el.classList.toggle('done');
@@ -2694,22 +2711,6 @@ function addGymPR() {
 </script>
 
 <div class="footer">BOA SORTE • 30 DE MAIO • 10KM</div>
-<script>
-  function closeSplash(option) {
-    const splash = document.querySelector('.splash-screen');
-    if (splash) {
-      splash.classList.add('hidden'); // aplica a classe já definida no CSS
-    }
 
-    // Ativar a aba correspondente
-    if (typeof switchTab === 'function') {
-      switchTab(option);
-    } else {
-      console.warn("Função switchTab não encontrada");
-    }
-  }
-</script>
-
-  
 </body>
 </html>
