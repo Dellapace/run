@@ -1514,14 +1514,18 @@
     <div class="splash-subtitle">O que faremos hoje?</div>
     <div class="splash-options">
       <div class="splash-option run" data-plan="corrida">
+        <div class="splash-option run" onclick="closeSplash('corrida')">
         <div class="splash-option-icon">⚡</div>
         <div class="splash-option-title">RUN</div>
         <div class="splash-option-desc">14 semanas · 3x por semana · Prova 30 de Maio</div>
+          </div>
       </div>
       <div class="splash-option gym" data-plan="musculacao">
+        <div class="splash-option gym" onclick="closeSplash('musculacao')">
         <div class="splash-option-icon">😈</div>
         <div class="splash-option-title">GYM</div>
         <div class="splash-option-desc">5x por semana · PRs editáveis · Optimizado para corrida</div>
+          </div>
       </div>
     </div>
   </div>
@@ -2692,16 +2696,20 @@ function addGymPR() {
 <div class="footer">BOA SORTE • 30 DE MAIO • 10KM</div>
 <script>
   function closeSplash(option) {
-    const splash = document.querySelector('.splash-screen'); 
-    if (splash) { 
-      splash.classList.add('hidden'); // aplica a classe já definida no CSS } // Ativar a aba correspondente 
-      if (option === 'corrida') { 
-        switchTab('corrida'); } 
-      else if (option === 'musculacao') {
-        switchTab('musculacao');
-      }
-    } 
-    </script>
+    const splash = document.querySelector('.splash-screen');
+    if (splash) {
+      splash.classList.add('hidden'); // aplica a classe já definida no CSS
+    }
+
+    // Ativar a aba correspondente
+    if (typeof switchTab === 'function') {
+      switchTab(option);
+    } else {
+      console.warn("Função switchTab não encontrada");
+    }
+  }
+</script>
+
   
 </body>
 </html>
