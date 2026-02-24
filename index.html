@@ -1,0 +1,2378 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Treino — 10km</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #141414;
+    --surface2: #1e1e1e;
+    --text: #f0f0f0;
+    --muted: #666;
+    
+    /* Running colors */
+    --run-primary: #47ffb2;
+    --run-secondary: #2dd494;
+    --run-glow: 0 0 20px rgba(71,255,178,0.15);
+    
+    /* Gym colors */
+    --gym-primary: #b847ff;
+    --gym-secondary: #9429d4;
+    --gym-glow: 0 0 20px rgba(184,71,255,0.15);
+    
+    /* Other colors */
+    --accent2: #ff6b35;
+    --blue: #4a9eff;
+    --yellow: #ffd447;
+    --orange: #ff8c42;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    padding: 48px 24px 36px;
+    overflow: hidden;
+    background: linear-gradient(160deg, #0f1a00 0%, #0a0a0a 60%);
+  }
+
+  .hero::before {
+    content: '10K';
+    position: absolute;
+    right: -20px;
+    top: -10px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 160px;
+    color: var(--accent);
+    opacity: 0.06;
+    line-height: 1;
+    pointer-events: none;
+    letter-spacing: -4px;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    background: var(--accent);
+    color: #000;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    line-height: 0.95;
+    letter-spacing: 1px;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .hero h1 span {
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 14px;
+    color: var(--muted);
+    font-weight: 300;
+    margin-bottom: 24px;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-top: 4px;
+  }
+
+  .stat-box {
+    background: var(--surface);
+    border: 1px solid #222;
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+  }
+
+  .stat-box .val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--accent);
+    display: block;
+    line-height: 1;
+  }
+
+  .stat-box .lbl {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 3px;
+    display: block;
+  }
+
+  /* RECORDS */
+  .section {
+    padding: 28px 24px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #1e1e1e;
+  }
+
+  .records-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .record-item {
+    background: var(--surface);
+    border: 1px solid #222;
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .record-item .dist {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  .record-item .time {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--text);
+    letter-spacing: 1px;
+  }
+
+  .pace-tag {
+    background: var(--surface2);
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .pace-tag .label { font-size: 13px; color: var(--muted); }
+  .pace-tag .value { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--accent2); }
+
+  /* PHASE CARDS */
+  .phases { padding: 0 24px 12px; }
+
+  .phase-card {
+    border-radius: 14px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+
+  .phase-header {
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .phase-card.blue .phase-header { background: #0d1e33; }
+  .phase-card.yellow .phase-header { background: #231a00; }
+  .phase-card.orange .phase-header { background: #1f1000; }
+  .phase-card.green .phase-header { background: #001f14; }
+
+  .phase-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 1px;
+  }
+
+  .phase-card.blue .phase-name { color: var(--blue); }
+  .phase-card.yellow .phase-name { color: var(--yellow); }
+  .phase-card.orange .phase-name { color: var(--orange); }
+  .phase-card.green .phase-name { color: var(--green); }
+
+  .phase-weeks {
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--muted);
+  }
+
+  .phase-goal {
+    font-size: 12px;
+    color: var(--muted);
+    padding: 10px 20px;
+    background: var(--surface);
+    font-style: italic;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  /* WEEK ROWS */
+  .week-row {
+    background: var(--surface);
+    border-bottom: 1px solid #1a1a1a;
+    padding: 14px 20px;
+  }
+
+  .week-row:last-child { border-bottom: none; }
+
+  .week-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .trainings {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .training-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .day-dot {
+    width: 28px;
+    height: 20px;
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    text-transform: uppercase;
+    margin-top: 1px;
+  }
+
+  .day-dot.ter { background: #1a2d4a; color: var(--blue); }
+  .day-dot.qui { background: #2a1a00; color: var(--yellow); }
+  .day-dot.sab { background: #001a10; color: var(--green); }
+
+  .training-desc {
+    font-size: 13px;
+    color: #c0c0c0;
+    line-height: 1.4;
+    font-weight: 300;
+  }
+
+  .training-desc strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .milestone-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #000;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    margin-left: 4px;
+    vertical-align: middle;
+  }
+
+  /* RACE WEEK */
+  .race-week {
+    margin: 0 24px 28px;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid #3a3a00;
+  }
+
+  .race-header {
+    background: linear-gradient(135deg, #1a1a00, #2a2600);
+    padding: 20px;
+    text-align: center;
+  }
+
+  .race-header h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--accent);
+    letter-spacing: 2px;
+  }
+
+  .race-header p {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .race-days {
+    background: var(--surface);
+  }
+
+  .race-day-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .race-day-item:last-child { border-bottom: none; }
+
+  .race-day-item .day-name { font-size: 13px; color: var(--muted); }
+  .race-day-item .day-desc { font-size: 13px; color: var(--text); font-weight: 400; }
+
+  .race-day-item.prova {
+    background: linear-gradient(135deg, #1a1a00, #111);
+  }
+
+  .race-day-item.prova .day-name { color: var(--accent); font-weight: 600; }
+  .race-day-item.prova .day-desc { color: var(--accent); font-weight: 600; font-family: 'Bebas Neue'; font-size: 18px; letter-spacing: 1px; }
+
+  /* TIPS */
+  .tips { padding: 0 24px 24px; }
+
+  .tip-card {
+    background: var(--surface);
+    border: 1px solid #222;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .tip-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .tip-text {
+    font-size: 13px;
+    color: #aaa;
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  .tip-text strong { color: var(--text); font-weight: 600; }
+
+  /* META */
+  .meta-bar {
+    margin: 0 24px 32px;
+    background: linear-gradient(135deg, #0f1a00, #0a0a0a);
+    border: 1px solid #2a3a00;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .meta-bar h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .meta-time {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+
+  .meta-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, #222, transparent);
+    margin: 4px 24px 0;
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero { animation: fadeUp 0.5s ease both; }
+  .phase-card { animation: fadeUp 0.5s ease both; }
+  .phase-card:nth-child(1) { animation-delay: 0.05s; }
+  .phase-card:nth-child(2) { animation-delay: 0.1s; }
+  .phase-card:nth-child(3) { animation-delay: 0.15s; }
+  .phase-card:nth-child(4) { animation-delay: 0.2s; }
+
+  .footer {
+    text-align: center;
+    padding: 20px 24px 40px;
+    font-size: 11px;
+    color: #333;
+    letter-spacing: 1px;
+  }
+
+  /* ── TABS SYSTEM ─────────────────────────────── */
+  .tabs-container {
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 50;
+    border-bottom: 1px solid #222;
+    padding: 0 24px;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 0;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .tab {
+    flex: 1;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: var(--muted);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 2px;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+
+  .tab:hover {
+    color: var(--text);
+    background: rgba(255,255,255,0.02);
+  }
+
+  .tab.active[onclick*="corrida"] {
+    color: var(--run-primary);
+    border-bottom-color: var(--run-primary);
+    background: rgba(71,255,178,0.05);
+  }
+
+  .tab.active[onclick*="musculacao"] {
+    color: var(--gym-primary);
+    border-bottom-color: var(--gym-primary);
+    background: rgba(184,71,255,0.05);
+  }
+
+  .tab-content {
+    display: none;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  /* ── GYM PLAN ─────────────────────────────── */
+  .gym-section {
+    padding: 28px 24px;
+  }
+
+  .gym-day-card {
+    background: var(--surface);
+    border: 1px solid #222;
+    border-radius: 14px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+
+  .gym-day-header {
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .gym-day-header.seg { background: #1a2d4a; }
+  .gym-day-header.ter { background: #2a1a00; }
+  .gym-day-header.qua { background: #1f1000; }
+
+  .gym-day-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 1px;
+  }
+
+  .gym-day-header.seg .gym-day-name { color: var(--blue); }
+  .gym-day-header.ter .gym-day-name { color: var(--yellow); }
+  .gym-day-header.qua .gym-day-name { color: var(--orange); }
+
+  .gym-day-muscles {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  .gym-exercises {
+    padding: 6px 0;
+  }
+
+  .gym-exercise-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid #1a1a1a;
+    gap: 12px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .gym-exercise-item:hover {
+    background: rgba(255,255,255,0.03);
+  }
+
+  .gym-exercise-item:last-child {
+    border-bottom: none;
+  }
+
+  .gym-exercise-item.done .gym-exercise-name {
+    opacity: 0.4;
+    text-decoration: line-through;
+  }
+
+  .gym-exercise-item.done .gym-exercise-sets {
+    opacity: 0.4;
+  }
+
+  .gym-exercise-name {
+    flex: 1;
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  .gym-exercise-sets {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    color: var(--accent);
+    letter-spacing: 1px;
+    min-width: 60px;
+    text-align: right;
+  }
+
+  .gym-note {
+    background: #0d1300;
+    border-left: 3px solid var(--accent);
+    padding: 12px 16px;
+    margin: 0 24px 16px;
+    border-radius: 0 4px 4px 0;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .gym-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 0 24px 24px;
+  }
+
+  .gym-stat-box {
+    background: var(--surface);
+    border: 1px solid #222;
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+  }
+
+  .gym-stat-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--gym-primary);
+    line-height: 1;
+  }
+
+  .gym-stat-lbl {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  .gym-exercise-sets {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    color: var(--gym-primary);
+    letter-spacing: 1px;
+    min-width: 60px;
+    text-align: right;
+  }
+
+  .gym-exercise-item.done .check-box {
+    background: var(--gym-primary);
+    border-color: var(--gym-primary);
+  }
+
+  .gym-note {
+    background: #1a0d26;
+    border-left: 3px solid var(--gym-primary);
+    padding: 12px 16px;
+    margin: 0 24px 16px;
+    border-radius: 0 4px 4px 0;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── PR EDITOR (RUNNING) ─────────────────────────────── */
+  #tab-corrida .pr-editor-section {
+    padding: 0 24px 28px;
+  }
+
+  .pr-intro {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+
+  .pr-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .pr-left {}
+
+  .pr-dist-label {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 3px;
+  }
+
+  .pr-desc {
+    font-size: 11px;
+    color: #555;
+    margin-top: 2px;
+  }
+
+  .pr-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .pr-time-display {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: var(--text);
+    cursor: pointer;
+    transition: color 0.15s;
+    min-width: 80px;
+    text-align: right;
+  }
+
+  .pr-time-display:hover { 
+    color: var(--run-primary); 
+  }
+
+  .pr-edit-wrap {
+    display: none;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .pr-edit-wrap.active { display: flex; }
+  .pr-time-display.hidden { display: none; }
+
+  .pr-btn-cancel {
+    background: transparent;
+    border: 1px solid #333;
+    border-radius: 4px;
+    color: #555;
+    font-size: 12px;
+    padding: 4px 7px;
+    cursor: pointer;
+  }
+
+  .pr-btn-cancel:hover { color: #999; }
+  .pr-btn-ok:hover { opacity: 0.85; }
+
+  #tab-corrida .pr-card {
+    background: var(--surface);
+    border: 1px solid #222;
+    border-radius: 10px;
+    padding: 12px 16px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 10px;
+    transition: border-color 0.2s;
+  }
+
+  #tab-corrida .pr-card.editing-card {
+    border-color: var(--run-primary);
+    box-shadow: 0 0 0 1px var(--run-primary), var(--run-glow);
+  }
+
+  #tab-corrida .pr-input-min,
+  #tab-corrida .pr-input-sec {
+    background: #111;
+    border: 1px solid var(--run-primary);
+    border-radius: 4px;
+    color: var(--run-primary);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    width: 44px;
+    text-align: center;
+    padding: 4px 2px;
+    outline: none;
+  }
+
+  #tab-corrida .pr-sep {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    color: var(--run-primary);
+  }
+
+  #tab-corrida .pr-btn-ok {
+    background: var(--run-primary);
+    border: none;
+    border-radius: 4px;
+    color: #000;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    padding: 5px 8px;
+    cursor: pointer;
+    letter-spacing: 1px;
+  }
+
+  #tab-corrida .stat-box .val,
+  #tab-corrida .hero-prog-pct {
+    color: var(--run-primary);
+  }
+
+  /* ── SIMULATOR (RUNNING) ─────────────────────────────── */
+  #tab-corrida .sim-card {
+    border: 1px solid #1a3a2a;
+  }
+
+  #tab-corrida .sim-title,
+  #tab-corrida .sim-pace-val,
+  #tab-corrida .sim-pred-time {
+    color: var(--run-primary);
+  }
+
+  #tab-corrida .sim-bar-pred {
+    background: var(--run-primary);
+  }
+
+  #tab-corrida .sim-gain {
+    color: var(--run-primary);
+  }
+
+  #tab-corrida .meta-time {
+    color: var(--run-primary);
+  }
+
+  #tab-corrida .week-prog-fill,
+  #tab-corrida .hero-prog-fill {
+    background: var(--run-primary);
+  }
+
+  #tab-corrida .check-box {
+    border-color: #333;
+  }
+
+  #tab-corrida .training-item.done .check-box {
+    background: var(--run-primary);
+    border-color: var(--run-primary);
+  }
+
+  /* ── GYM PRs ─────────────────────────────── */
+  .gym-prs-section {
+    padding: 0 24px 28px;
+  }
+
+  .gym-pr-card {
+    background: var(--surface);
+    border: 1px solid #222;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    transition: border-color 0.2s;
+  }
+
+  .gym-pr-card.editing {
+    border-color: var(--gym-primary);
+    box-shadow: 0 0 0 1px var(--gym-primary), var(--gym-glow);
+  }
+
+  .gym-pr-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .gym-pr-name-display {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  .gym-pr-name-display:hover {
+    color: var(--gym-primary);
+  }
+
+  .gym-pr-delete {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 16px;
+    padding: 4px 8px;
+  }
+
+  .gym-pr-delete:hover {
+    color: var(--accent2);
+  }
+
+  .gym-pr-values {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+  }
+
+  .gym-pr-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--gym-primary);
+    cursor: pointer;
+  }
+
+  .gym-pr-value:hover {
+    opacity: 0.7;
+  }
+
+  .gym-pr-label {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-left: 2px;
+  }
+
+  .gym-pr-edit-form {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .gym-pr-edit-form.active {
+    display: flex;
+  }
+
+  .gym-pr-edit-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .gym-pr-input {
+    background: #111;
+    border: 1px solid var(--gym-primary);
+    border-radius: 4px;
+    color: var(--gym-primary);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    padding: 6px 8px;
+    outline: none;
+    text-align: center;
+  }
+
+  .gym-pr-input.name {
+    flex: 1;
+    text-align: left;
+  }
+
+  .gym-pr-input.small {
+    width: 60px;
+  }
+
+  .gym-pr-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .gym-pr-btn {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .gym-pr-btn.save {
+    background: var(--gym-primary);
+    color: #000;
+  }
+
+  .gym-pr-btn.cancel {
+    background: transparent;
+    border: 1px solid #333;
+    color: var(--muted);
+  }
+
+  .gym-pr-btn:hover {
+    opacity: 0.8;
+  }
+
+  .add-gym-pr-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    background: transparent;
+    border: 1px dashed #333;
+    border-radius: 8px;
+    color: var(--gym-primary);
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+  }
+
+  .add-gym-pr-btn:hover {
+    border-color: var(--gym-primary);
+    background: rgba(184,71,255,0.05);
+  }
+
+  /* ── SIMULADOR ─────────────────────────────── */
+  .sim-card {
+    background: var(--surface);
+    border: 1px solid #2a3a00;
+    border-radius: 14px;
+    overflow: hidden;
+    margin: 0 24px 28px;
+  }
+
+  .sim-header {
+    background: linear-gradient(135deg, #111a00, #0a0a0a);
+    padding: 16px 20px;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .sim-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--accent);
+    letter-spacing: 1px;
+  }
+
+  .sim-subtitle {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  .sim-countdown {
+    margin-left: auto;
+    text-align: right;
+  }
+
+  .sim-days-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--accent2);
+    line-height: 1;
+  }
+
+  .sim-days-lbl {
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .sim-rows {
+    padding: 6px 0;
+  }
+
+  .sim-row {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    align-items: center;
+    padding: 11px 20px;
+    border-bottom: 1px solid #1a1a1a;
+    gap: 12px;
+  }
+
+  .sim-row:last-child { border-bottom: none; }
+
+  .sim-dist {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  .sim-bar-wrap {
+    position: relative;
+    height: 6px;
+    background: #1a1a1a;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .sim-bar-now {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    border-radius: 3px;
+    background: #333;
+    transition: width 0.5s ease;
+  }
+
+  .sim-bar-pred {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    border-radius: 3px;
+    background: var(--accent);
+    opacity: 0.7;
+    transition: width 0.5s ease;
+  }
+
+  .sim-times {
+    text-align: right;
+    min-width: 110px;
+  }
+
+  .sim-pred-time {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    color: var(--accent);
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+
+  .sim-gain {
+    font-size: 10px;
+    color: var(--green);
+    letter-spacing: 0.5px;
+    margin-top: 1px;
+  }
+
+  .sim-pace-row {
+    background: #0d1300;
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #2a3a00;
+  }
+
+  .sim-pace-label {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .sim-pace-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--accent);
+    letter-spacing: 1px;
+  }
+
+  .sim-method {
+    font-size: 10px;
+    color: #444;
+    padding: 10px 20px 14px;
+    line-height: 1.5;
+  }
+
+  /* ── CHECK SYSTEM ─────────────────────────────── */
+  .training-item {
+    cursor: pointer;
+    border-radius: 6px;
+    padding: 3px 6px 3px 3px;
+    margin: 0 -6px 0 -3px;
+    transition: background 0.15s;
+    user-select: none;
+  }
+
+  .training-item:hover { background: rgba(255,255,255,0.03); }
+
+  .check-box {
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid #333;
+    border-radius: 4px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    margin-top: 1px;
+  }
+
+  .training-item.done .check-box {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .check-tick {
+    display: none;
+    font-size: 11px;
+    color: #000;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .training-item.done .check-tick { display: block; }
+
+  .training-item.done .training-desc {
+    opacity: 0.4;
+    text-decoration: line-through;
+    text-decoration-color: #555;
+  }
+
+  .training-item.done .day-dot {
+    opacity: 0.35;
+  }
+
+  /* progress bar no week-row */
+  .week-progress {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .week-prog-bar {
+    flex: 1;
+    height: 3px;
+    background: #1e1e1e;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .week-prog-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+
+  .week-prog-label {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+
+  .week-row.all-done {
+    background: rgba(232,255,71,0.03);
+  }
+
+  .week-row.all-done .week-number {
+    color: var(--accent);
+  }
+
+  /* sticky progress no hero */
+  .hero-progress {
+    margin-top: 16px;
+    background: #111;
+    border-radius: 8px;
+    padding: 12px 14px;
+    border: 1px solid #1e1e1e;
+  }
+
+  .hero-prog-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+  }
+
+  .hero-prog-label {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .hero-prog-pct {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--accent);
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+
+  .hero-prog-bar {
+    height: 5px;
+    background: #1e1e1e;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .hero-prog-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 3px;
+    transition: width 0.5s ease;
+  }
+
+  .hero-prog-counts {
+    font-size: 10px;
+    color: #444;
+    margin-top: 5px;
+    letter-spacing: 0.5px;
+  }
+
+  .toast-pr {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(60px);
+    background: var(--accent);
+    color: #000;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    letter-spacing: 2px;
+    padding: 10px 20px;
+    border-radius: 6px;
+    z-index: 999;
+    opacity: 0;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .toast-pr.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+
+  @media (max-width: 420px) {
+    .sim-row { grid-template-columns: 64px 1fr auto; }
+    .sim-times { min-width: 90px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">🏃 Plano de Treino</div>
+  <h1>RUMO AOS<br><span>10KM</span></h1>
+  <p class="hero-sub">30 de Maio · 14 semanas · 3x por semana</p>
+
+  <div class="hero-stats">
+    <div class="stat-box">
+      <span class="val">14</span>
+      <span class="lbl">Semanas</span>
+    </div>
+    <div class="stat-box">
+      <span class="val">3x</span>
+      <span class="lbl">Por semana</span>
+    </div>
+    <div class="stat-box">
+      <span class="val">7.3</span>
+      <span class="lbl">km atuais</span>
+    </div>
+  </div>
+
+  <div class="hero-progress">
+    <div class="hero-prog-top">
+      <span class="hero-prog-label">Treinos concluídos</span>
+      <span class="hero-prog-pct" id="hero-pct">0%</span>
+    </div>
+    <div class="hero-prog-bar">
+      <div class="hero-prog-fill" id="hero-fill" style="width:0%"></div>
+    </div>
+    <div class="hero-prog-counts" id="hero-counts">0 de 42 treinos feitos</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- TABS -->
+<div class="tabs-container">
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('corrida')">🏃 Corrida</button>
+    <button class="tab" onclick="switchTab('musculacao')">💪 Musculação</button>
+  </div>
+</div>
+
+<!-- TAB CONTENT: CORRIDA -->
+<div class="tab-content active" id="tab-corrida">
+
+<!-- PR EDITOR -->
+<div class="section-title" style="padding: 0 24px; margin-bottom: 14px; margin-top: 8px;">Insere os teus PRs</div>
+<div class="pr-editor-section">
+  <p class="pr-intro">Clica no tempo de qualquer distância para actualizar o teu recorde pessoal. O simulador abaixo recalcula automaticamente o teu pace e tempo previsto para 30 de Maio.</p>
+  <div class="pr-cards" id="pr-cards"></div>
+</div>
+
+<!-- SIMULADOR -->
+<div class="sim-card">
+  <div class="sim-header">
+    <div>
+      <div class="sim-title">⚡ Simulador de Pace</div>
+      <div class="sim-subtitle">Previsão até 30 de Maio</div>
+    </div>
+    <div class="sim-countdown">
+      <div class="sim-days-val" id="days-left">—</div>
+      <div class="sim-days-lbl">dias restantes</div>
+    </div>
+  </div>
+  <div class="sim-rows" id="sim-rows"></div>
+  <div class="sim-pace-row">
+    <span class="sim-pace-label">Pace previsto nos 10km (30/Mai)</span>
+    <span class="sim-pace-val" id="sim-pace-10k">—</span>
+  </div>
+  <div class="sim-method" id="sim-method"></div>
+</div>
+
+<!-- META -->
+<div class="meta-bar">
+  <h3>Meta de chegada</h3>
+  <div class="meta-time" id="meta-time-display">1h05–1h10</div>
+  <div class="meta-sub" id="meta-time-sub">correndo de forma constante e confortável</div>
+</div>
+
+<!-- PHASES -->
+<div class="section-title" style="padding: 0 24px; margin-bottom: 14px;">Plano semana a semana</div>
+
+<div class="phases">
+
+  <!-- FASE 1 -->
+  <div class="phase-card blue">
+    <div class="phase-header">
+      <div>
+        <div class="phase-name">🔵 Fase 1 — Base</div>
+        <div class="phase-weeks">Semanas 1 a 4</div>
+      </div>
+    </div>
+    <div class="phase-goal">Construir resistência e consistência</div>
+
+    <div class="week-row">
+      <div class="week-number">Semana 1</div>
+      <div class="trainings">
+        <div class="training-item"><div class="day-dot ter">Ter</div><div class="training-desc"><strong>4km fácil</strong> — ritmo de conversa</div></div>
+        <div class="training-item"><div class="day-dot qui">Qui</div><div class="training-desc"><strong>3km</strong> a 7:00/km constante</div></div>
+        <div class="training-item"><div class="day-dot sab">Sáb</div><div class="training-desc"><strong>7km</strong> fácil (longão)</div></div>
+      </div>
+    </div>
+
+    <div class="week-row">
+      <div class="week-number">Semana 2</div>
+      <div class="trainings">
+        <div class="training-item"><div class="day-dot ter">Ter</div><div class="training-desc"><strong>4x400m</strong> a 5:30/km + aquecimento</div></div>
+        <div class="training-item"><div class="day-dot qui">Qui</div><div class="training-desc"><strong>4km</strong> a 7:00/km constante</div></div>
+        <div class="training-item"><div class="day-dot sab">Sáb</div><div class="training-desc"><strong>7,5km</strong> fácil (longão)</div></div>
+      </div>
+    </div>
+
+    <div class="week-row">
+      <div class="week-number">Semana 3</div>
+      <div class="trainings">
+        <div class="training-item"><div class="day-dot ter">Ter</div><div class="training-desc"><strong>5km fácil</strong></div></div>
+        <div class="training-item"><div class="day-dot qui">Qui</div><div class="training-desc"><strong>4km</strong> a 6:50/km</div></div>
+        <div class="training-item"><div class="day-dot sab">Sáb</div><div class="training-desc"><strong>8km</strong> fácil (longão)</div></div>
+      </div>
+    </div>
+
+    <div class="week-row">
+      <div class="week-number">Semana 4</div>
+      <div class="trainings">
+        <div class="training-item"><div class="day-dot ter">Ter</div><div class="training-desc"><strong>4x400m</strong> a 5:30/km + aquecimento</div></div>
+        <div class="training-item"><div class="day-dot qui">Qui</div><div class="training-desc"><strong>4km</strong> a 6:50/km</div></div>
+        <div class="training-item"><div class="day-dot sab">Sáb</div><div class="training-desc"><strong>8,5km</strong> fácil (longão)</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FASE 2 -->
+  <div class="phase-card yellow">
+    <div class="phase-header">
+      <div>
+        <div class="phase-name">🟡 Fase 2 — Desenvolvimento</div>
+        <div class="phase-weeks">Semanas 5 a 9</div>
+      </div>
+    </div>
+    <div class="phase-goal">Aumentar volume e introduzir ritmos de prova</div>
+
+    <div class="week-row">
+      <div class="week-number">Semana 5</div>
+      <div class="trainings">
+        <div class="training-item"><div class="day-dot ter">Ter</div><div class="training-desc"><strong>3x1km</strong> a 6:30/km</div></div>
+        <div class="training-item"><div class="day-dot qui">Qui</div><div class="training-desc"><strong>5km</strong> a 7:00/km</div></div>
+        <div class="training-item"><div class="day-dot sab">Sáb</div><div class="training-desc"><strong>9km</strong> fácil (longão)</div></div>
+      </div>
+    </div>
+
+    <div class="week-row">
+      <div class="week-number">Semana 6</div>
+      <div class="trainings">
+        <div class="training-item"><div class="day-dot ter">Ter</div><div class="training-desc"><strong>3x1km</strong> a 6:20/km</div></div>
+        <div class="training-item"><div class="day-dot qui">Qui</div><div class="training-desc"><strong>5km</strong> a 6:50/km</div></div>
+        <div class="training-item"><div class="day-dot sab">Sáb</div><div class="training-desc"><strong>9,5km</strong> fácil (longão)</div></div>
+      </div>
+    </div>
+
+    <div class="week-row">
+      <div class="week-number">Semana 7 ⭐</div>
+      <div class="trainings">
+        <div class="training-item"><div class="day-dot ter">Ter</div><div class="training-desc"><strong>4x1km</strong> a 6:30/km</div></div>
+        <div class="training-item"><div class="day-dot qui">Qui</div><div class="training-desc"><strong>5km</strong> a 6:50/km</div></div>
+        <div class="training-item"><div class="day-dot sab">Sáb</div><div class="training-desc"><strong>10km fácil</strong><span class="milestone-badge">PRIMEIRO 10K</span></div></div>
+      </div>
+    </div>
+
+    <div class="week-row">
+      <div class="week-number">Semana 8</div>
+      <div class="trainings">
+        <div class="training-item"><div class="day-dot ter">Ter</div><div class="training-desc"><strong>4x1km</strong> a 6:20/km</div></div>
+        <div class="training-item"><div class="day-dot qui">Qui</div><div class="training-desc"><strong>6km</strong> a 7:00/km</div></div>
+        <div class="training-item"><div class="day-dot sab">Sáb</div><div class="training-desc"><strong>10km</strong> fácil</div></div>
+      </div>
+    </div>
+
+    <div class="week-row">
+      <div class="week-number">Semana 9</div>
+      <div class="trainings">
+        <div class="training-item"><div class="day-dot ter">Ter</div><div class="training-desc"><strong>5x1km</strong> a 6:30/km</div></div>
+        <div class="training-item"><div class="day-dot qui">Qui</div><div class="training-desc"><strong>6km</strong> a 6:50/km</div></div>
+        <div class="training-item"><div class="day-dot sab">Sáb</div><div class="training-desc"><strong>10km</strong> fácil</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FASE 3 -->
+  <div class="phase-card orange">
+    <div class="phase-header">
+      <div>
+        <div class="phase-name">🟠 Fase 3 — Ritmo de Prova</div>
+        <div class="phase-weeks">Semanas 10 a 13</div>
+      </div>
+    </div>
+    <div class="phase-goal">Correr no ritmo da prova com confiança</div>
+
+    <div class="week-row">
+      <div class="week-number">Semana 10</div>
+      <div class="trainings">
+        <div class="training-item"><div class="day-dot ter">Ter</div><div class="training-desc"><strong>3x2km</strong> a 6:50/km</div></div>
+        <div class="training-item"><div class="day-dot qui">Qui</div><div class="training-desc"><strong>5km</strong> a 6:50/km</div></div>
+        <div class="training-item"><div class="day-dot sab">Sáb</div><div class="training-desc"><strong>10km</strong> moderado</div></div>
+      </div>
+    </div>
+
+    <div class="week-row">
+      <div class="week-number">Semana 11</div>
+      <div class="trainings">
+        <div class="training-item"><div class="day-dot ter">Ter</div><div class="training-desc"><strong>3x2km</strong> a 6:40/km</div></div>
+        <div class="training-item"><div class="day-dot qui">Qui</div><div class="training-desc"><strong>5km</strong> a 6:40/km</div></div>
+        <div class="training-item"><div class="day-dot sab">Sáb</div><div class="training-desc"><strong>10km</strong> moderado</div></div>
+      </div>
+    </div>
+
+    <div class="week-row">
+      <div class="week-number">Semana 12</div>
+      <div class="trainings">
+        <div class="training-item"><div class="day-dot ter">Ter</div><div class="training-desc"><strong>2x3km</strong> a 6:50/km</div></div>
+        <div class="training-item"><div class="day-dot qui">Qui</div><div class="training-desc"><strong>4km</strong> a 6:50/km</div></div>
+        <div class="training-item"><div class="day-dot sab">Sáb</div><div class="training-desc"><strong>8km</strong> leve</div></div>
+      </div>
+    </div>
+
+    <div class="week-row">
+      <div class="week-number">Semana 13</div>
+      <div class="trainings">
+        <div class="training-item"><div class="day-dot ter">Ter</div><div class="training-desc"><strong>2x2km</strong> a 6:50/km</div></div>
+        <div class="training-item"><div class="day-dot qui">Qui</div><div class="training-desc"><strong>3km</strong> fácil</div></div>
+        <div class="training-item"><div class="day-dot sab">Sáb</div><div class="training-desc"><strong>6km</strong> leve — descansando</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- SEMANA DA PROVA -->
+<div class="section-title" style="padding: 0 24px; margin-bottom: 14px;">Semana da prova</div>
+
+<div class="race-week">
+  <div class="race-header">
+    <h3>🏁 SEMANA 14</h3>
+    <p>Descanse, confie no treino e corra!</p>
+  </div>
+  <div class="race-days">
+    <div class="race-day-item">
+      <span class="day-name">Terça</span>
+      <span class="day-desc">3km fácil, mantendo o ritmo</span>
+    </div>
+    <div class="race-day-item">
+      <span class="day-name">Quinta</span>
+      <span class="day-desc">2km leve ou descanso</span>
+    </div>
+    <div class="race-day-item">
+      <span class="day-name">Sex / Sáb</span>
+      <span class="day-desc">Descanso total — hidrate bem</span>
+    </div>
+    <div class="race-day-item prova">
+      <span class="day-name">☀️ 30 de Maio</span>
+      <span class="day-desc">PROVA — 10KM! 🏆</span>
+    </div>
+  </div>
+</div>
+
+</div>
+<!-- END TAB: CORRIDA -->
+
+<!-- TAB CONTENT: MUSCULAÇÃO -->
+<div class="tab-content" id="tab-musculacao">
+
+<div class="gym-section">
+  <div class="section-title">Estatísticas semanais</div>
+  <div class="gym-stats-grid">
+    <div class="gym-stat-box">
+      <div class="gym-stat-val" id="gym-total-done">0</div>
+      <div class="gym-stat-lbl">Exercícios feitos</div>
+    </div>
+    <div class="gym-stat-box">
+      <div class="gym-stat-val" id="gym-progress-pct">0%</div>
+      <div class="gym-stat-lbl">Progresso semanal</div>
+    </div>
+  </div>
+</div>
+
+<div class="gym-prs-section">
+  <div class="section-title" style="padding: 0; margin-bottom: 14px;">Meus PRs</div>
+  <p style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.5">Regista os teus recordes pessoais. Clica para editar séries, reps e peso.</p>
+  <div id="gym-prs-list"></div>
+  <button class="add-gym-pr-btn" onclick="addGymPR()">
+    <span style="font-size:18px">＋</span> Adicionar exercício
+  </button>
+</div>
+
+<div class="gym-section">
+  <div class="section-title">Treino Semanal</div>
+
+  <!-- SEGUNDA -->
+  <div class="gym-day-card">
+    <div class="gym-day-header seg">
+      <div>
+        <div class="gym-day-name">SEGUNDA — Peito + Tríceps + Core</div>
+        <div class="gym-day-muscles">20 séries · 60-70 min</div>
+      </div>
+    </div>
+    <div class="gym-exercises" data-day="seg">
+      <div class="gym-exercise-item" data-gid="seg-1">
+        <div class="check-box"><span class="check-tick">✓</span></div>
+        <div class="gym-exercise-name">Crucifixo máquina</div>
+        <div class="gym-exercise-sets">3×12-15</div>
+      </div>
+      <div class="gym-exercise-item" data-gid="seg-2">
+        <div class="check-box"><span class="check-tick">✓</span></div>
+        <div class="gym-exercise-name">Supino inclinado halter</div>
+        <div class="gym-exercise-sets">3×8-10</div>
+      </div>
+      <div class="gym-exercise-item" data-gid="seg-3">
+        <div class="check-box"><span class="check-tick">✓</span></div>
+        <div class="gym-exercise-name">Supino reto barra</div>
+        <div class="gym-exercise-sets">3×8-10</div>
+      </div>
+      <div class="gym-exercise-item" data-gid="seg-4">
+        <div class="check-box"><span class="check-tick">✓</span></div>
+        <div class="gym-exercise-name">Pullover halter ou Cross Over</div>
+        <div class="gym-exercise-sets">3×12-15</div>
+      </div>
+      <div class="gym-exercise-item" data-gid="seg-5">
+        <div class="check-box"><span class="check-tick">✓</span></div>
+        <div class="gym-exercise-name">Tríceps polia barra</div>
+        <div class="gym-exercise-sets">3×12-15</div>
+      </div>
+      <div class="gym-exercise-item" data-gid="seg-6">
+        <div class="check-box"><span class="check-tick">✓</span></div>
+        <div class="gym-exercise-name">Tríceps francês corda</div>
+        <div class="gym-exercise-sets">3×10-12</div>
+      </div>
+      <div class="gym-exercise-item" data-gid="seg-7">
+        <div class="check-box"><span class="check-tick">✓</span></div>
+        <div class="gym-exercise-name">Prancha frontal</div>
+        <div class="gym-exercise-sets">3×45-60s</div>
+      </div>
+      <div class="gym-exercise-item" data-gid="seg-8">
+        <div class="check-box"><span class="check-tick">✓</span></div>
+        <div class="gym-exercise-name">Dead bug</div>
+        <div class="gym-exercise-sets">3×12/lado</div>
+      </div>
+    </div>
+  </div>
+  <div class="gym-note">💡 Supino reto depois do inclinado = menos carga mas treina bem. Corrida intervalar à noite.</div>
+
+  <!-- TERÇA -->
+  <div class="gym-day-card">
+    <div class="gym-day-header ter">
+      <div>
+        <div class="gym-day-name">TERÇA — Costas + Bíceps + Panturrilha</div>
+        <div class="gym-day-muscles">16 séries · 55-65 min</div>
+      </div>
+    </div>
+    <div class="gym-exercises" data-day="ter">
+      <div class="gym-exercise-item" data-gid="ter-1">
+        <div class="check-box"><span class="check-tick">✓</span></div>
+        <div class="gym-exercise-name">Puxada aberta barra</div>
+        <div class="gym-exercise-sets">3×10-12</div>
+      </div>
+      <div class="gym-exercise-item" data-gid="ter-2">
+        <div class="check-box"><span class="check-tick">✓</span></div>
+        <div class="gym-exercise-name">Puxada neutra triângulo</div>
+        <div class="gym-exercise-sets">3×10-12</div>
+      </div>
+      <div class="gym-exercise-item" data-gid="ter-3">
+        <div class="check-box"><span class="check-tick">✓</span></div>
+        <div class="gym-exercise-name">Remada baixa triângulo</div>
+        <div class="gym-exercise-sets">3×10-12</div>
+      </div>
+      <div class="gym-exercise-item" data-gid="ter-4">
+        <div class="check-box"><span class="check-tick">✓</span></div>
+        <div class="gym-exercise-name">Remada curvada barra</div>
+        <div class="gym-exercise-sets">4×8-10</div>
+      </div>
+      <div class="gym-exercise-item" data-gid="ter-5">
+        <div class="check-box"><span class="check-tick">✓</span></div>
+        <div class="gym-exercise-name">Rosca direta barra W</div>
+        <div class="gym-exercise-sets">3×10-12</div>
+      </div>
+      <div class="gym-exercise-item" data-gid="ter-6">
+        <div class="check-box"><span class="check-tick">✓</span></div>
+        <div class="gym-exercise-name">Rosca martelo halter</div>
+        <div class="gym-exercise-sets">3×10-12</div>
+      </div>
+      <div class="gym-exercise-item" data-gid="ter-7">
+        <div class="check-box"><span class="check-tick">✓</span></div>
+        <div class="gym-exercise-name">Rosca Scott máquina</div>
+        <div class="gym-exercise-sets">3×12-15</div>
+      </div>
+      <div class="gym-exercise-item" data-gid="ter-8">
+        <div class="check-box"><span class="check-tick">✓</span></div>
+        <div class="gym-exercise-name">Panturrilha em pé máquina</div>
+        <div class="gym-exercise-sets">3×15-20</div>
+      </div>
+    </div>
+  </div>
+  <div class="gym-note">⚠️ SEM corrida hoje — recuperação. Remada curvada essencial para postura na corrida.</div>
+
+  <!-- QUARTA -->
+  <div class="gym-day-card">
+    <div class="gym-day-header qua">
+      <div>
+        <div class="gym-day-name">QUARTA — Ombros + Pernas</div>
+        <div class="gym-day-muscles">17 séries · 50-60 min</div>
+      </div>
+    </div>
+    <div class="gym-exercises" data-day="qua">
+      <div class="gym-exercise-item" data-gid="qua-1">
+        <div class="check-box"><span class="check-tick">✓</span></div>
+        <div class="gym-exercise-name">Desenvolvimento máquina</div>
+        <div class="gym-exercise-sets">4×10-12</div>
+      </div>
+      <div class="gym-exercise-item" data-gid="qua-2">
+        <div class="check-box"><span class="check-tick">✓</span></div>
+        <div class="gym-exercise-name">Elevação lateral halter</div>
+        <div class="gym-exercise-sets">3×12-15</div>
+      </div>
+      <div class="gym-exercise-item" data-gid="qua-3">
+        <div class="check-box"><span class="check-tick">✓</span></div>
+        <div class="gym-exercise-name">Crucifixo invertido máquina</div>
+        <div class="gym-exercise-sets">3×12-15</div>
+      </div>
+      <div class="gym-exercise-item" data-gid="qua-4">
+        <div class="check-box"><span class="check-tick">✓</span></div>
+        <div class="gym-exercise-name">Face pull corda</div>
+        <div class="gym-exercise-sets">3×15-20</div>
+      </div>
+      <div class="gym-exercise-item" data-gid="qua-5">
+        <div class="check-box"><span class="check-tick">✓</span></div>
+        <div class="gym-exercise-name">Agachamento livre barra</div>
+        <div class="gym-exercise-sets">3×6-8</div>
+      </div>
+      <div class="gym-exercise-item" data-gid="qua-6">
+        <div class="check-box"><span class="check-tick">✓</span></div>
+        <div class="gym-exercise-name">Stiff barra</div>
+        <div class="gym-exercise-sets">3×8-10</div>
+      </div>
+      <div class="gym-exercise-item" data-gid="qua-7">
+        <div class="check-box"><span class="check-tick">✓</span></div>
+        <div class="gym-exercise-name">Rosca punho barra</div>
+        <div class="gym-exercise-sets">2×15-20</div>
+      </div>
+    </div>
+  </div>
+  <div class="gym-note">⚡ Volume de pernas reduzido 70% para não comprometer corrida. Corrida fácil à noite.</div>
+
+  <!-- QUINTA -->
+  <div class="gym-day-card">
+    <div class="gym-day-header seg">
+      <div>
+        <div class="gym-day-name">QUINTA — Peito + Tríceps + Core</div>
+        <div class="gym-day-muscles">Repete segunda-feira</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEXTA -->
+  <div class="gym-day-card">
+    <div class="gym-day-header ter">
+      <div>
+        <div class="gym-day-name">SEXTA — Costas + Bíceps + Panturrilha</div>
+        <div class="gym-day-muscles">Repete terça-feira</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SÁBADO/DOMINGO -->
+  <div class="gym-day-card">
+    <div class="gym-day-header" style="background:#001f14">
+      <div>
+        <div class="gym-day-name" style="color:var(--green)">SÁBADO/DOMINGO</div>
+        <div class="gym-day-muscles">Corrida longa + Descanso</div>
+      </div>
+    </div>
+  </div>
+  <div class="gym-note">🏃 Sábado: corrida longa 7-10km (SEM musculação). Domingo: OFF total.</div>
+</div>
+
+<div class="gym-section">
+  <div class="section-title">Periodização até 30 de Maio</div>
+  <div style="background:var(--surface);border:1px solid #222;border-radius:10px;padding:16px;margin-bottom:12px">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--blue);margin-bottom:8px">SEMANAS 1-8 · Base + Desenvolvimento</div>
+    <div style="font-size:12px;color:var(--muted);line-height:1.5">Plano completo acima. Progressão +2.5kg/semana em compostos.</div>
+  </div>
+  <div style="background:var(--surface);border:1px solid #222;border-radius:10px;padding:16px;margin-bottom:12px">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--yellow);margin-bottom:8px">SEMANAS 9-11 · Ritmo de Prova</div>
+    <div style="font-size:12px;color:var(--muted);line-height:1.5">Reduz pernas: agachamento 2×6, stiff 2×8. Resto mantém.</div>
+  </div>
+  <div style="background:var(--surface);border:1px solid #222;border-radius:10px;padding:16px;margin-bottom:12px">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--orange);margin-bottom:8px">SEMANA 12 · Pré-Taper</div>
+    <div style="font-size:12px;color:var(--muted);line-height:1.5">Volume -30%. Pernas ZERO (só panturrilha).</div>
+  </div>
+  <div style="background:var(--surface);border:1px solid #222;border-radius:10px;padding:16px">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--green);margin-bottom:8px">SEMANAS 13-14 · Taper + Prova</div>
+    <div style="font-size:12px;color:var(--muted);line-height:1.5">Volume -50%, carga 70%. Semana 14: só treino leve segunda, depois ZERO até prova.</div>
+  </div>
+</div>
+
+</div>
+<!-- END TAB: MUSCULAÇÃO -->
+
+<!-- TIPS (visible in both tabs) -->
+<div class="section-title" style="padding: 24px 24px 14px; margin-bottom: 0;">Dicas importantes</div>
+<div class="tips">
+  <div class="tip-card">
+    <div class="tip-icon">💬</div>
+    <div class="tip-text"><strong>Ritmo "fácil"</strong> significa conseguir manter uma conversa enquanto corre. Não é passeio, mas não é sofrimento.</div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">🔥</div>
+    <div class="tip-text"><strong>Aquecimento</strong> antes de todo treino: 5 min de caminhada + mobilidade leve.</div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">💧</div>
+    <div class="tip-text"><strong>Hidratação e sono</strong> valem tanto quanto o treino. Não negligencie.</div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">⚠️</div>
+    <div class="tip-text"><strong>Dor vs. desconforto:</strong> dor muscular é normal. Dor articular ou aguda = parar e avaliar.</div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">⭐</div>
+    <div class="tip-text"><strong>Semana 7</strong> é o grande marco: quando você completar 10km no treino, a prova fica muito menos intimidante.</div>
+  </div>
+</div>
+
+<div class="toast-pr" id="toast-pr"></div>
+
+<script>
+// ─── CHECK SYSTEM ─────────────────────────────────────────────────────────────
+let checks = JSON.parse(localStorage.getItem('checks-10k-v1') || '{}');
+
+function initChecks() {
+  // Selecciona todos os training-item e dá-lhes um ID único
+  const items = document.querySelectorAll('.training-item');
+  items.forEach((el, i) => {
+    const id = `t${i}`;
+    el.dataset.tid = id;
+
+    // Insere o checkbox antes do day-dot
+    const box = document.createElement('div');
+    box.className = 'check-box';
+    box.innerHTML = '<span class="check-tick">✓</span>';
+    el.insertBefore(box, el.firstChild);
+
+    // Restaura estado
+    if (checks[id]) el.classList.add('done');
+
+    // Click handler
+    el.addEventListener('click', () => toggleCheck(el, id));
+  });
+
+  // Adiciona barra de progresso a cada week-row
+  document.querySelectorAll('.week-row').forEach(row => {
+    const prog = document.createElement('div');
+    prog.className = 'week-progress';
+    prog.innerHTML = `
+      <div class="week-prog-bar">
+        <div class="week-prog-fill" style="width:0%"></div>
+      </div>
+      <div class="week-prog-label">0/3</div>`;
+    row.appendChild(prog);
+  });
+
+  updateAllProgress();
+}
+
+function toggleCheck(el, id) {
+  el.classList.toggle('done');
+  checks[id] = el.classList.contains('done');
+  localStorage.setItem('checks-10k-v1', JSON.stringify(checks));
+  updateAllProgress();
+
+  if (checks[id]) showToast('✓ Treino concluído!');
+}
+
+function updateAllProgress() {
+  let totalDone = 0;
+  let totalAll = 0;
+
+  document.querySelectorAll('.week-row').forEach(row => {
+    const items = row.querySelectorAll('.training-item');
+    const done = row.querySelectorAll('.training-item.done').length;
+    const all = items.length;
+
+    totalDone += done;
+    totalAll += all;
+
+    const pct = all > 0 ? Math.round((done / all) * 100) : 0;
+    const fill = row.querySelector('.week-prog-fill');
+    const label = row.querySelector('.week-prog-label');
+
+    if (fill) fill.style.width = pct + '%';
+    if (label) label.textContent = `${done}/${all}`;
+
+    if (done === all && all > 0) {
+      row.classList.add('all-done');
+    } else {
+      row.classList.remove('all-done');
+    }
+  });
+
+  // Atualiza barra global no hero
+  const pct = totalAll > 0 ? Math.round((totalDone / totalAll) * 100) : 0;
+  const heroFill = document.getElementById('hero-fill');
+  const heroPct = document.getElementById('hero-pct');
+  const heroCounts = document.getElementById('hero-counts');
+
+  if (heroFill) heroFill.style.width = pct + '%';
+  if (heroPct) heroPct.textContent = pct + '%';
+  if (heroCounts) heroCounts.textContent = `${totalDone} de ${totalAll} treinos feitos`;
+}
+// ─── CONFIG ─────────────────────────────────────────────────────────────────
+const RACE_DATE = new Date('2025-05-30T09:00:00');
+
+// Distâncias com PRs iniciais (do plano original) em segundos totais
+let prs = JSON.parse(localStorage.getItem('prs-10k-v1') || 'null') || [
+  { id: '400m',    label: '400m',     secPR: 97,   desc: 'tiro curto' },
+  { id: '1km',     label: '1 km',     secPR: 318,  desc: 'pace base' },
+  { id: '1mi',     label: '1 milha',  secPR: 540,  desc: '~1.6km' },
+  { id: '2mi',     label: '2 milhas', secPR: 1200, desc: '~3.2km' },
+  { id: '5km',     label: '5 km',     secPR: 2105, desc: 'meia prova' },
+];
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+function secToTime(s) {
+  s = Math.round(s);
+  const h = Math.floor(s / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  const sec = s % 60;
+  if (h > 0) return `${h}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+  return `${m}:${String(sec).padStart(2,'0')}`;
+}
+
+function timeToSec(m, s) { return parseInt(m||0)*60 + parseInt(s||0); }
+
+function daysUntilRace() {
+  const now = new Date();
+  const diff = RACE_DATE - now;
+  return Math.max(0, Math.ceil(diff / 86400000));
+}
+
+function weeksUntilRace() { return daysUntilRace() / 7; }
+
+// ─── PREDICTOR ───────────────────────────────────────────────────────────────
+// Usa Riegel's formula: T2 = T1 × (D2/D1)^1.06
+// Aplica melhoria progressiva baseada nas semanas restantes e nível atual
+function riegelPredict(refSec, refMeters, targetMeters) {
+  return refSec * Math.pow(targetMeters / refMeters, 1.06);
+}
+
+function distMeters(id) {
+  const map = { '400m': 400, '1km': 1000, '1mi': 1609, '2mi': 3218, '5km': 5000 };
+  return map[id] || 1000;
+}
+
+// Melhoria esperada: quanto mais semanas, maior a melhoria (mas com tecto)
+// Para corredores intermédios: ~1-2.5% por mês em 5km/10km
+function improvementFactor(weeks) {
+  // Ganho mensal ~2% em pace, diminuindo ao longo do tempo
+  const months = weeks / 4.33;
+  return Math.pow(1 - 0.02, months); // factor < 1 significa MELHORIA (menos segundos)
+}
+
+function predict10k() {
+  const weeks = weeksUntilRace();
+  const factor = improvementFactor(weeks);
+
+  // Escolhe o PR mais representativo de endurance (5km > 2mi > 1km)
+  const ranked = ['5km','2mi','1mi','1km','400m'];
+  let best = null;
+  for (const id of ranked) {
+    const pr = prs.find(p => p.id === id);
+    if (pr && pr.secPR > 0) { best = pr; break; }
+  }
+  if (!best) return null;
+
+  const refM = distMeters(best.id);
+  const raw10k = riegelPredict(best.secPR, refM, 10000);
+  const predicted = raw10k * factor;
+  const pacePerKm = predicted / 10;
+
+  return { predicted, pacePerKm, fromId: best.id, raw10k, weeks, factor };
+}
+
+// ─── RENDER PR CARDS ─────────────────────────────────────────────────────────
+function renderPRCards() {
+  const container = document.getElementById('pr-cards');
+  container.innerHTML = prs.map(pr => {
+    const t = secToTime(pr.secPR);
+    return `
+    <div class="pr-card" id="prc-${pr.id}">
+      <div class="pr-left">
+        <div class="pr-dist-label">${pr.label}</div>
+        <div class="pr-desc">${pr.desc}</div>
+      </div>
+      <div class="pr-right">
+        <div class="pr-time-display" id="disp-${pr.id}" onclick="startEditPR('${pr.id}')">${t}</div>
+        <div class="pr-edit-wrap" id="edit-${pr.id}">
+          <input class="pr-input-min" id="min-${pr.id}" type="number" min="0" max="99" placeholder="mm"
+            value="${Math.floor(pr.secPR/60)}"
+            onkeydown="prKey(event,'${pr.id}')">
+          <span class="pr-sep">:</span>
+          <input class="pr-input-sec" id="sec-${pr.id}" type="number" min="0" max="59" placeholder="ss"
+            value="${pr.secPR%60}"
+            onkeydown="prKey(event,'${pr.id}')">
+          <button class="pr-btn-ok" onclick="savePR('${pr.id}')">OK</button>
+          <button class="pr-btn-cancel" onclick="cancelPR('${pr.id}')">✕</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function startEditPR(id) {
+  cancelAllEdits();
+  const card = document.getElementById(`prc-${id}`);
+  const disp = document.getElementById(`disp-${id}`);
+  const edit = document.getElementById(`edit-${id}`);
+  const pr = prs.find(p => p.id === id);
+  document.getElementById(`min-${id}`).value = Math.floor(pr.secPR / 60);
+  document.getElementById(`sec-${id}`).value = String(pr.secPR % 60).padStart(2,'0');
+  card.classList.add('editing-card');
+  disp.classList.add('hidden');
+  edit.classList.add('active');
+  document.getElementById(`min-${id}`).focus();
+  document.getElementById(`min-${id}`).select();
+}
+
+function cancelPR(id) {
+  const card = document.getElementById(`prc-${id}`);
+  const disp = document.getElementById(`disp-${id}`);
+  const edit = document.getElementById(`edit-${id}`);
+  card.classList.remove('editing-card');
+  disp.classList.remove('hidden');
+  edit.classList.remove('active');
+}
+
+function cancelAllEdits() {
+  prs.forEach(p => { try { cancelPR(p.id); } catch(e){} });
+}
+
+function prKey(e, id) {
+  if (e.key === 'Enter') savePR(id);
+  if (e.key === 'Escape') cancelPR(id);
+}
+
+function savePR(id) {
+  const m = parseInt(document.getElementById(`min-${id}`).value) || 0;
+  const s = parseInt(document.getElementById(`sec-${id}`).value) || 0;
+  const newSec = timeToSec(m, s);
+  if (newSec <= 0) { showToast('Tempo inválido'); return; }
+  const pr = prs.find(p => p.id === id);
+  const old = pr.secPR;
+  pr.secPR = newSec;
+  localStorage.setItem('prs-10k-v1', JSON.stringify(prs));
+  cancelPR(id);
+  renderPRCards();
+  renderSimulator();
+  if (newSec < old) showToast(`🔥 Novo PR em ${pr.label}! ${secToTime(newSec)}`);
+  else showToast(`✓ ${pr.label} actualizado: ${secToTime(newSec)}`);
+}
+
+// ─── RENDER SIMULATOR ────────────────────────────────────────────────────────
+function renderSimulator() {
+  const days = daysUntilRace();
+  document.getElementById('days-left').textContent = days > 0 ? days : 'HOJE!';
+
+  const result = predict10k();
+  const rows = document.getElementById('sim-rows');
+  const paceEl = document.getElementById('sim-pace-10k');
+  const methodEl = document.getElementById('sim-method');
+  const metaTime = document.getElementById('meta-time-display');
+  const metaSub = document.getElementById('meta-time-sub');
+
+  if (!result) {
+    rows.innerHTML = '<div style="padding:20px;color:#555;font-size:13px;text-align:center">Insere pelo menos um PR acima para ver a simulação.</div>';
+    paceEl.textContent = '—';
+    return;
+  }
+
+  const { predicted, pacePerKm, fromId, raw10k, weeks, factor } = result;
+
+  // Gera linhas para cada distância + 10km
+  const targets = [
+    ...prs.map(p => ({ label: p.label, meters: distMeters(p.id), current: p.secPR })),
+    { label: '10 km 🏁', meters: 10000, current: null }
+  ];
+
+  const maxSec = Math.max(...targets.map(t => {
+    const cur = t.current || riegelPredict(prs.find(p => p.id === fromId).secPR, distMeters(fromId), t.meters);
+    return cur;
+  }));
+
+  rows.innerHTML = targets.map(t => {
+    const refPR = prs.find(p => p.id === fromId);
+    const rawPred = riegelPredict(refPR.secPR, distMeters(fromId), t.meters);
+    const pred = t.meters === 10000 ? predicted : rawPred * factor;
+    const current = t.current || rawPred;
+    const gain = current - pred;
+    const gainStr = gain > 0 ? `−${secToTime(gain)}` : '=';
+    const barNow = Math.round((current / maxSec) * 100);
+    const barPred = Math.round((pred / maxSec) * 100);
+    const is10k = t.meters === 10000;
+
+    return `
+    <div class="sim-row" style="${is10k ? 'background:#0d1300' : ''}">
+      <div class="sim-dist" style="${is10k ? 'color:var(--accent);font-weight:600' : ''}">${t.label}</div>
+      <div class="sim-bar-wrap">
+        <div class="sim-bar-now" style="width:${barNow}%"></div>
+        <div class="sim-bar-pred" style="width:${barPred}%"></div>
+      </div>
+      <div class="sim-times">
+        <div class="sim-pred-time" style="${is10k ? 'font-size:24px;color:var(--accent)' : ''}">${secToTime(pred)}</div>
+        ${gain > 2 ? `<div class="sim-gain">${gainStr} vs actual</div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+
+  // Pace /km para 10km previsto
+  const paceMin = Math.floor(pacePerKm / 60);
+  const paceSec = Math.round(pacePerKm % 60);
+  paceEl.textContent = `${paceMin}:${String(paceSec).padStart(2,'0')} /km`;
+
+  // Actualiza meta no topo
+  const h = Math.floor(predicted / 3600);
+  const m = Math.floor((predicted % 3600) / 60);
+  const s = Math.round(predicted % 60);
+  if (h > 0) {
+    metaTime.textContent = `${h}h${String(m).padStart(2,'0')}`;
+  } else {
+    metaTime.textContent = `${m}min${String(s).padStart(2,'0')}s`;
+  }
+  metaSub.textContent = `previsão baseada no teu PR de ${prs.find(p=>p.id===fromId).label} · pace ${paceMin}:${String(paceSec).padStart(2,'0')}/km`;
+
+  const impPct = Math.round((1 - factor) * 100 * 10) / 10;
+  methodEl.textContent = `⚙ Previsão calculada com a Fórmula de Riegel (expoente 1.06) a partir do teu PR de ${prs.find(p=>p.id===fromId).label}, com melhoria estimada de ${impPct}% ao longo das ${Math.round(weeks)} semanas até à prova (taxa ~2%/mês para nível intermédio). A barra verde é a previsão; cinza é o atual.`;
+}
+
+// ─── TOAST ───────────────────────────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast-pr');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+renderPRCards();
+renderSimulator();
+initChecks();
+initGymChecks();
+renderGymPRs();
+
+// ─── TAB SWITCHING ───────────────────────────────────────────────────────────
+function switchTab(tab) {
+  // Update tab buttons
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  
+  // Update content
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  
+  // Save preference
+  localStorage.setItem('active-tab', tab);
+}
+
+// Restore last tab on load
+window.addEventListener('load', () => {
+  const lastTab = localStorage.getItem('active-tab');
+  if (lastTab === 'musculacao') {
+    document.querySelector('.tab[onclick*="musculacao"]').click();
+  }
+});
+
+// ─── GYM CHECKS ──────────────────────────────────────────────────────────────
+let gymChecks = JSON.parse(localStorage.getItem('gym-checks-v1') || '{}');
+
+function initGymChecks() {
+  const items = document.querySelectorAll('.gym-exercise-item[data-gid]');
+  items.forEach(el => {
+    const id = el.dataset.gid;
+    
+    // Restore state
+    if (gymChecks[id]) el.classList.add('done');
+    
+    // Click handler
+    el.addEventListener('click', () => toggleGymCheck(el, id));
+  });
+  
+  updateGymProgress();
+}
+
+function toggleGymCheck(el, id) {
+  el.classList.toggle('done');
+  gymChecks[id] = el.classList.contains('done');
+  localStorage.setItem('gym-checks-v1', JSON.stringify(gymChecks));
+  updateGymProgress();
+  
+  if (gymChecks[id]) showToast('✓ Exercício concluído!');
+}
+
+function updateGymProgress() {
+  const all = document.querySelectorAll('.gym-exercise-item[data-gid]').length;
+  const done = document.querySelectorAll('.gym-exercise-item.done').length;
+  const pct = all > 0 ? Math.round((done / all) * 100) : 0;
+  
+  const doneEl = document.getElementById('gym-total-done');
+  const pctEl = document.getElementById('gym-progress-pct');
+  
+  if (doneEl) doneEl.textContent = done;
+  if (pctEl) pctEl.textContent = pct + '%';
+}
+
+// ─── GYM PRs ─────────────────────────────────────────────────────────────────
+let gymPRs = JSON.parse(localStorage.getItem('gym-prs-v1') || 'null') || [
+  { id: 'gpr1', name: 'Supino reto', sets: 3, reps: 8, weight: 80 },
+  { id: 'gpr2', name: 'Agachamento livre', sets: 3, reps: 6, weight: 100 },
+  { id: 'gpr3', name: 'Terra', sets: 3, reps: 5, weight: 120 },
+];
+
+function saveGymPRs() {
+  localStorage.setItem('gym-prs-v1', JSON.stringify(gymPRs));
+}
+
+function renderGymPRs() {
+  const container = document.getElementById('gym-prs-list');
+  if (!container) return;
+  
+  container.innerHTML = gymPRs.map(pr => `
+    <div class="gym-pr-card" id="gpr-card-${pr.id}">
+      <div class="gym-pr-header">
+        <div class="gym-pr-name-display" onclick="startEditGymPR('${pr.id}')">${pr.name}</div>
+        <button class="gym-pr-delete" onclick="deleteGymPR('${pr.id}')" title="Remover">✕</button>
+      </div>
+      <div class="gym-pr-values" id="gpr-display-${pr.id}" onclick="startEditGymPR('${pr.id}')">
+        <div>
+          <span class="gym-pr-value">${pr.sets}×${pr.reps}</span>
+          <span class="gym-pr-label">séries×reps</span>
+        </div>
+        <div>
+          <span class="gym-pr-value">${pr.weight}kg</span>
+        </div>
+      </div>
+      <div class="gym-pr-edit-form" id="gpr-edit-${pr.id}">
+        <input type="text" class="gym-pr-input name" id="gpr-name-${pr.id}" value="${pr.name}" placeholder="Nome do exercício">
+        <div class="gym-pr-edit-row">
+          <input type="number" class="gym-pr-input small" id="gpr-sets-${pr.id}" value="${pr.sets}" placeholder="Séries" min="1" max="10">
+          <span style="color:var(--muted);align-self:center">×</span>
+          <input type="number" class="gym-pr-input small" id="gpr-reps-${pr.id}" value="${pr.reps}" placeholder="Reps" min="1" max="50">
+          <input type="number" class="gym-pr-input small" id="gpr-weight-${pr.id}" value="${pr.weight}" placeholder="kg" min="0" step="2.5">
+          <span style="color:var(--muted);align-self:center;font-size:12px">kg</span>
+        </div>
+        <div class="gym-pr-actions">
+          <button class="gym-pr-btn cancel" onclick="cancelEditGymPR('${pr.id}')">Cancelar</button>
+          <button class="gym-pr-btn save" onclick="saveGymPR('${pr.id}')">Guardar</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function startEditGymPR(id) {
+  // Close all others
+  gymPRs.forEach(pr => {
+    try { cancelEditGymPR(pr.id); } catch(e) {}
+  });
+  
+  const card = document.getElementById(`gpr-card-${id}`);
+  const display = document.getElementById(`gpr-display-${id}`);
+  const form = document.getElementById(`gpr-edit-${id}`);
+  
+  card.classList.add('editing');
+  display.style.display = 'none';
+  form.classList.add('active');
+  
+  document.getElementById(`gpr-name-${id}`).focus();
+}
+
+function cancelEditGymPR(id) {
+  const card = document.getElementById(`gpr-card-${id}`);
+  const display = document.getElementById(`gpr-display-${id}`);
+  const form = document.getElementById(`gpr-edit-${id}`);
+  
+  card.classList.remove('editing');
+  display.style.display = 'flex';
+  form.classList.remove('active');
+}
+
+function saveGymPR(id) {
+  const name = document.getElementById(`gpr-name-${id}`).value.trim();
+  const sets = parseInt(document.getElementById(`gpr-sets-${id}`).value) || 0;
+  const reps = parseInt(document.getElementById(`gpr-reps-${id}`).value) || 0;
+  const weight = parseFloat(document.getElementById(`gpr-weight-${id}`).value) || 0;
+  
+  if (!name) {
+    showToast('Adiciona um nome');
+    return;
+  }
+  
+  if (sets <= 0 || reps <= 0 || weight <= 0) {
+    showToast('Valores inválidos');
+    return;
+  }
+  
+  const pr = gymPRs.find(p => p.id === id);
+  const oldWeight = pr.weight;
+  
+  pr.name = name;
+  pr.sets = sets;
+  pr.reps = reps;
+  pr.weight = weight;
+  
+  saveGymPRs();
+  renderGymPRs();
+  
+  if (weight > oldWeight) {
+    showToast(`🔥 Novo PR! ${name} — ${weight}kg`);
+  } else {
+    showToast(`✓ ${name} actualizado`);
+  }
+}
+
+function deleteGymPR(id) {
+  if (!confirm('Remover este PR?')) return;
+  
+  gymPRs = gymPRs.filter(pr => pr.id !== id);
+  saveGymPRs();
+  renderGymPRs();
+  showToast('PR removido');
+}
+
+function addGymPR() {
+  const newId = 'gpr' + Date.now();
+  gymPRs.push({
+    id: newId,
+    name: 'Novo exercício',
+    sets: 3,
+    reps: 10,
+    weight: 50
+  });
+  saveGymPRs();
+  renderGymPRs();
+  setTimeout(() => startEditGymPR(newId), 100);
+}
+
+</script>
+
+<div class="footer">BOA SORTE • 30 DE MAIO • 10KM</div>
+
+</body>
+</html>

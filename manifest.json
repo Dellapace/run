@@ -1,0 +1,24 @@
+{
+  "name": "Plano 10KM — 30 de Maio",
+  "short_name": "10KM ⚡",
+  "description": "Plano de treino, PRs e simulador de pace para a prova de 10km",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#e8ff47",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
