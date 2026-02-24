@@ -2690,6 +2690,18 @@ function addGymPR() {
 </script>
 
 <div class="footer">BOA SORTE • 30 DE MAIO • 10KM</div>
-
+<script>
+  function closeSplash(option) {
+    const splash = document.querySelector('.splash-screen'); 
+    if (splash) { 
+      splash.classList.add('hidden'); // aplica a classe já definida no CSS } // Ativar a aba correspondente 
+      if (option === 'corrida') { 
+        switchTab('corrida'); } 
+      else if (option === 'musculacao') {
+        switchTab('musculacao');
+      }
+    } 
+    </script>
+  
 </body>
 </html>
