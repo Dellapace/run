@@ -454,6 +454,220 @@
     letter-spacing: 1px;
   }
 
+  /* ── SPLASH SCREEN ─────────────────────────────── */
+  .splash-screen {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+  }
+
+  .splash-screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .splash-content {
+    text-align: center;
+    max-width: 500px;
+    padding: 0 24px;
+  }
+
+  .splash-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 64px;
+    line-height: 0.9;
+    letter-spacing: 2px;
+    color: var(--text);
+    margin-bottom: 16px;
+    animation: fadeInUp 0.6s ease;
+  }
+
+  .splash-subtitle {
+    font-size: 14px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 48px;
+    animation: fadeInUp 0.6s ease 0.2s both;
+  }
+
+  .splash-options {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: fadeInUp 0.6s ease 0.4s both;
+  }
+
+  .splash-option {
+    background: var(--surface);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+  }
+
+  .splash-option:hover {
+    transform: translateY(-4px);
+  }
+
+  .splash-option.run {
+    border-color: var(--run-primary);
+  }
+
+  .splash-option.run:hover {
+    background: rgba(71,255,178,0.1);
+    box-shadow: 0 8px 24px rgba(71,255,178,0.2);
+  }
+
+  .splash-option.gym {
+    border-color: var(--gym-primary);
+  }
+
+  .splash-option.gym:hover {
+    background: rgba(184,71,255,0.1);
+    box-shadow: 0 8px 24px rgba(184,71,255,0.2);
+  }
+
+  .splash-option-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+  }
+
+  .splash-option-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  .splash-option.run .splash-option-title {
+    color: var(--run-primary);
+  }
+
+  .splash-option.gym .splash-option-title {
+    color: var(--gym-primary);
+  }
+
+  .splash-option-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ── 3-STATE CHECKS (RUNNING) ─────────────────────────────── */
+  #tab-corrida .check-box {
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid #333;
+    border-radius: 4px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    margin-top: 1px;
+    cursor: pointer;
+  }
+
+  #tab-corrida .training-item.done .check-box {
+    background: var(--run-primary);
+    border-color: var(--run-primary);
+  }
+
+  #tab-corrida .training-item.skipped .check-box {
+    background: var(--accent2);
+    border-color: var(--accent2);
+  }
+
+  #tab-corrida .check-tick {
+    display: none;
+    font-size: 11px;
+    color: #000;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  #tab-corrida .training-item.done .check-tick {
+    display: block;
+    content: '✓';
+  }
+
+  #tab-corrida .training-item.skipped .check-tick {
+    display: block;
+    content: '✕';
+  }
+
+  #tab-corrida .training-item.skipped .check-tick::before {
+    content: '✕';
+  }
+
+  #tab-corrida .training-item.done .training-desc {
+    opacity: 0.4;
+    text-decoration: line-through;
+    text-decoration-color: #555;
+  }
+
+  #tab-corrida .training-item.skipped .training-desc {
+    opacity: 0.3;
+    text-decoration: line-through;
+    text-decoration-color: var(--accent2);
+  }
+
+  #tab-corrida .training-item.done .day-dot,
+  #tab-corrida .training-item.skipped .day-dot {
+    opacity: 0.35;
+  }
+
+  /* ── GYM CHECKS (SEPARATE) ─────────────────────────────── */
+  .gym-check-box {
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid #333;
+    border-radius: 4px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    cursor: pointer;
+  }
+
+  .gym-exercise-item.done .gym-check-box {
+    background: var(--gym-primary);
+    border-color: var(--gym-primary);
+  }
+
+  .gym-check-tick {
+    display: none;
+    font-size: 11px;
+    color: #000;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .gym-exercise-item.done .gym-check-tick {
+    display: block;
+  }
+
   /* ── TABS SYSTEM ─────────────────────────────── */
   .tabs-container {
     position: sticky;
@@ -1147,7 +1361,7 @@
     line-height: 1.5;
   }
 
-  /* ── CHECK SYSTEM ─────────────────────────────── */
+  /* ── CHECK SYSTEM (OLD - REMOVED, SEE ABOVE FOR 3-STATE) ─────────────────────────────── */
   .training-item {
     cursor: pointer;
     border-radius: 6px;
@@ -1158,44 +1372,6 @@
   }
 
   .training-item:hover { background: rgba(255,255,255,0.03); }
-
-  .check-box {
-    width: 18px;
-    height: 18px;
-    border: 1.5px solid #333;
-    border-radius: 4px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s;
-    margin-top: 1px;
-  }
-
-  .training-item.done .check-box {
-    background: var(--accent);
-    border-color: var(--accent);
-  }
-
-  .check-tick {
-    display: none;
-    font-size: 11px;
-    color: #000;
-    font-weight: 700;
-    line-height: 1;
-  }
-
-  .training-item.done .check-tick { display: block; }
-
-  .training-item.done .training-desc {
-    opacity: 0.4;
-    text-decoration: line-through;
-    text-decoration-color: #555;
-  }
-
-  .training-item.done .day-dot {
-    opacity: 0.35;
-  }
 
   /* progress bar no week-row */
   .week-progress {
@@ -1317,6 +1493,26 @@
 </style>
 </head>
 <body>
+
+<!-- SPLASH SCREEN -->
+<div class="splash-screen" id="splash">
+  <div class="splash-content">
+    <div class="splash-title">TREINO<br>COMPLETO</div>
+    <div class="splash-subtitle">Escolhe o teu plano</div>
+    <div class="splash-options">
+      <div class="splash-option run" onclick="selectPlan('corrida')">
+        <div class="splash-option-icon">🏃</div>
+        <div class="splash-option-title">CORRIDA 10KM</div>
+        <div class="splash-option-desc">14 semanas · 3x por semana · Prova 30 de Maio</div>
+      </div>
+      <div class="splash-option gym" onclick="selectPlan('musculacao')">
+        <div class="splash-option-icon">💪</div>
+        <div class="splash-option-title">MUSCULAÇÃO</div>
+        <div class="splash-option-desc">6x por semana · PRs editáveis · Optimizado para corrida</div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- HERO -->
 <div class="hero">
@@ -1625,41 +1821,49 @@
     </div>
     <div class="gym-exercises" data-day="seg">
       <div class="gym-exercise-item" data-gid="seg-1">
+        <div class="gym-check-box"><span class="gym-check-tick">✓</span></div>
         <div class="check-box"><span class="check-tick">✓</span></div>
         <div class="gym-exercise-name">Crucifixo máquina</div>
         <div class="gym-exercise-sets">3×12-15</div>
       </div>
       <div class="gym-exercise-item" data-gid="seg-2">
+        <div class="gym-check-box"><span class="gym-check-tick">✓</span></div>
         <div class="check-box"><span class="check-tick">✓</span></div>
         <div class="gym-exercise-name">Supino inclinado halter</div>
         <div class="gym-exercise-sets">3×8-10</div>
       </div>
       <div class="gym-exercise-item" data-gid="seg-3">
+        <div class="gym-check-box"><span class="gym-check-tick">✓</span></div>
         <div class="check-box"><span class="check-tick">✓</span></div>
         <div class="gym-exercise-name">Supino reto barra</div>
         <div class="gym-exercise-sets">3×8-10</div>
       </div>
       <div class="gym-exercise-item" data-gid="seg-4">
+        <div class="gym-check-box"><span class="gym-check-tick">✓</span></div>
         <div class="check-box"><span class="check-tick">✓</span></div>
         <div class="gym-exercise-name">Pullover halter ou Cross Over</div>
         <div class="gym-exercise-sets">3×12-15</div>
       </div>
       <div class="gym-exercise-item" data-gid="seg-5">
+        <div class="gym-check-box"><span class="gym-check-tick">✓</span></div>
         <div class="check-box"><span class="check-tick">✓</span></div>
         <div class="gym-exercise-name">Tríceps polia barra</div>
         <div class="gym-exercise-sets">3×12-15</div>
       </div>
       <div class="gym-exercise-item" data-gid="seg-6">
+        <div class="gym-check-box"><span class="gym-check-tick">✓</span></div>
         <div class="check-box"><span class="check-tick">✓</span></div>
         <div class="gym-exercise-name">Tríceps francês corda</div>
         <div class="gym-exercise-sets">3×10-12</div>
       </div>
       <div class="gym-exercise-item" data-gid="seg-7">
+        <div class="gym-check-box"><span class="gym-check-tick">✓</span></div>
         <div class="check-box"><span class="check-tick">✓</span></div>
         <div class="gym-exercise-name">Prancha frontal</div>
         <div class="gym-exercise-sets">3×45-60s</div>
       </div>
       <div class="gym-exercise-item" data-gid="seg-8">
+        <div class="gym-check-box"><span class="gym-check-tick">✓</span></div>
         <div class="check-box"><span class="check-tick">✓</span></div>
         <div class="gym-exercise-name">Dead bug</div>
         <div class="gym-exercise-sets">3×12/lado</div>
@@ -1678,41 +1882,49 @@
     </div>
     <div class="gym-exercises" data-day="ter">
       <div class="gym-exercise-item" data-gid="ter-1">
+        <div class="gym-check-box"><span class="gym-check-tick">✓</span></div>
         <div class="check-box"><span class="check-tick">✓</span></div>
         <div class="gym-exercise-name">Puxada aberta barra</div>
         <div class="gym-exercise-sets">3×10-12</div>
       </div>
       <div class="gym-exercise-item" data-gid="ter-2">
+        <div class="gym-check-box"><span class="gym-check-tick">✓</span></div>
         <div class="check-box"><span class="check-tick">✓</span></div>
         <div class="gym-exercise-name">Puxada neutra triângulo</div>
         <div class="gym-exercise-sets">3×10-12</div>
       </div>
       <div class="gym-exercise-item" data-gid="ter-3">
+        <div class="gym-check-box"><span class="gym-check-tick">✓</span></div>
         <div class="check-box"><span class="check-tick">✓</span></div>
         <div class="gym-exercise-name">Remada baixa triângulo</div>
         <div class="gym-exercise-sets">3×10-12</div>
       </div>
       <div class="gym-exercise-item" data-gid="ter-4">
+        <div class="gym-check-box"><span class="gym-check-tick">✓</span></div>
         <div class="check-box"><span class="check-tick">✓</span></div>
         <div class="gym-exercise-name">Remada curvada barra</div>
         <div class="gym-exercise-sets">4×8-10</div>
       </div>
       <div class="gym-exercise-item" data-gid="ter-5">
+        <div class="gym-check-box"><span class="gym-check-tick">✓</span></div>
         <div class="check-box"><span class="check-tick">✓</span></div>
         <div class="gym-exercise-name">Rosca direta barra W</div>
         <div class="gym-exercise-sets">3×10-12</div>
       </div>
       <div class="gym-exercise-item" data-gid="ter-6">
+        <div class="gym-check-box"><span class="gym-check-tick">✓</span></div>
         <div class="check-box"><span class="check-tick">✓</span></div>
         <div class="gym-exercise-name">Rosca martelo halter</div>
         <div class="gym-exercise-sets">3×10-12</div>
       </div>
       <div class="gym-exercise-item" data-gid="ter-7">
+        <div class="gym-check-box"><span class="gym-check-tick">✓</span></div>
         <div class="check-box"><span class="check-tick">✓</span></div>
         <div class="gym-exercise-name">Rosca Scott máquina</div>
         <div class="gym-exercise-sets">3×12-15</div>
       </div>
       <div class="gym-exercise-item" data-gid="ter-8">
+        <div class="gym-check-box"><span class="gym-check-tick">✓</span></div>
         <div class="check-box"><span class="check-tick">✓</span></div>
         <div class="gym-exercise-name">Panturrilha em pé máquina</div>
         <div class="gym-exercise-sets">3×15-20</div>
@@ -1731,36 +1943,43 @@
     </div>
     <div class="gym-exercises" data-day="qua">
       <div class="gym-exercise-item" data-gid="qua-1">
+        <div class="gym-check-box"><span class="gym-check-tick">✓</span></div>
         <div class="check-box"><span class="check-tick">✓</span></div>
         <div class="gym-exercise-name">Desenvolvimento máquina</div>
         <div class="gym-exercise-sets">4×10-12</div>
       </div>
       <div class="gym-exercise-item" data-gid="qua-2">
+        <div class="gym-check-box"><span class="gym-check-tick">✓</span></div>
         <div class="check-box"><span class="check-tick">✓</span></div>
         <div class="gym-exercise-name">Elevação lateral halter</div>
         <div class="gym-exercise-sets">3×12-15</div>
       </div>
       <div class="gym-exercise-item" data-gid="qua-3">
+        <div class="gym-check-box"><span class="gym-check-tick">✓</span></div>
         <div class="check-box"><span class="check-tick">✓</span></div>
         <div class="gym-exercise-name">Crucifixo invertido máquina</div>
         <div class="gym-exercise-sets">3×12-15</div>
       </div>
       <div class="gym-exercise-item" data-gid="qua-4">
+        <div class="gym-check-box"><span class="gym-check-tick">✓</span></div>
         <div class="check-box"><span class="check-tick">✓</span></div>
         <div class="gym-exercise-name">Face pull corda</div>
         <div class="gym-exercise-sets">3×15-20</div>
       </div>
       <div class="gym-exercise-item" data-gid="qua-5">
+        <div class="gym-check-box"><span class="gym-check-tick">✓</span></div>
         <div class="check-box"><span class="check-tick">✓</span></div>
         <div class="gym-exercise-name">Agachamento livre barra</div>
         <div class="gym-exercise-sets">3×6-8</div>
       </div>
       <div class="gym-exercise-item" data-gid="qua-6">
+        <div class="gym-check-box"><span class="gym-check-tick">✓</span></div>
         <div class="check-box"><span class="check-tick">✓</span></div>
         <div class="gym-exercise-name">Stiff barra</div>
         <div class="gym-exercise-sets">3×8-10</div>
       </div>
       <div class="gym-exercise-item" data-gid="qua-7">
+        <div class="gym-check-box"><span class="gym-check-tick">✓</span></div>
         <div class="check-box"><span class="check-tick">✓</span></div>
         <div class="gym-exercise-name">Rosca punho barra</div>
         <div class="gym-exercise-sets">2×15-20</div>
@@ -1852,12 +2071,36 @@
 <div class="toast-pr" id="toast-pr"></div>
 
 <script>
-// ─── CHECK SYSTEM ─────────────────────────────────────────────────────────────
-let checks = JSON.parse(localStorage.getItem('checks-10k-v1') || '{}');
+
+// ─── SPLASH SCREEN ───────────────────────────────────────────────────────────
+function selectPlan(plan) {
+  const splash = document.getElementById('splash');
+  splash.classList.add('hidden');
+  setTimeout(() => splash.style.display = 'none', 500);
+  
+  // Switch to selected tab
+  setTimeout(() => {
+    if (plan === 'musculacao') {
+      const gymTab = document.querySelector('.tab[onclick*="musculacao"]');
+      if (gymTab) gymTab.click();
+    }
+  }, 600);
+}
+
+// Auto-hide splash after 10s if no choice
+setTimeout(() => {
+  const splash = document.getElementById('splash');
+  if (splash && !splash.classList.contains('hidden')) {
+    selectPlan('corrida');
+  }
+}, 10000);
+
+// ─── CHECK SYSTEM (RUNNING - 3 STATES) ──────────────────────────────────────
+let checks = JSON.parse(localStorage.getItem('checks-10k-v2') || '{}');
 
 function initChecks() {
   // Selecciona todos os training-item e dá-lhes um ID único
-  const items = document.querySelectorAll('.training-item');
+  const items = document.querySelectorAll('#tab-corrida .training-item');
   items.forEach((el, i) => {
     const id = `t${i}`;
     el.dataset.tid = id;
@@ -1869,14 +2112,16 @@ function initChecks() {
     el.insertBefore(box, el.firstChild);
 
     // Restaura estado
-    if (checks[id]) el.classList.add('done');
+    const state = checks[id];
+    if (state === 'done') el.classList.add('done');
+    if (state === 'skipped') el.classList.add('skipped');
 
     // Click handler
-    el.addEventListener('click', () => toggleCheck(el, id));
+    el.addEventListener('click', () => toggleCheck3State(el, id));
   });
 
   // Adiciona barra de progresso a cada week-row
-  document.querySelectorAll('.week-row').forEach(row => {
+  document.querySelectorAll('#tab-corrida .week-row').forEach(row => {
     const prog = document.createElement('div');
     prog.className = 'week-progress';
     prog.innerHTML = `
@@ -1890,20 +2135,33 @@ function initChecks() {
   updateAllProgress();
 }
 
-function toggleCheck(el, id) {
-  el.classList.toggle('done');
-  checks[id] = el.classList.contains('done');
-  localStorage.setItem('checks-10k-v1', JSON.stringify(checks));
+function toggle Check3State(el, id) {
+  // Ciclo: não feito → feito → pulado → não feito
+  const current = checks[id];
+  
+  el.classList.remove('done', 'skipped');
+  
+  if (!current || current === 'skipped') {
+    // não feito → feito
+    el.classList.add('done');
+    checks[id] = 'done';
+    showToast('✓ Treino concluído!');
+  } else if (current === 'done') {
+    // feito → pulado
+    el.classList.add('skipped');
+    checks[id] = 'skipped';
+    showToast('✕ Treino pulado');
+  }
+  
+  localStorage.setItem('checks-10k-v2', JSON.stringify(checks));
   updateAllProgress();
-
-  if (checks[id]) showToast('✓ Treino concluído!');
 }
 
 function updateAllProgress() {
   let totalDone = 0;
   let totalAll = 0;
 
-  document.querySelectorAll('.week-row').forEach(row => {
+  document.querySelectorAll('#tab-corrida .week-row').forEach(row => {
     const items = row.querySelectorAll('.training-item');
     const done = row.querySelectorAll('.training-item.done').length;
     const all = items.length;
@@ -2204,6 +2462,25 @@ let gymChecks = JSON.parse(localStorage.getItem('gym-checks-v1') || '{}');
 
 function initGymChecks() {
   const items = document.querySelectorAll('.gym-exercise-item[data-gid]');
+  items.forEach(el => {
+    const id = el.dataset.gid;
+    
+    // Restaura estado
+    if (gymChecks[id]) el.classList.add('done');
+    
+    // CRÍTICO: Adiciona click handler APENAS ao checkbox, não ao item inteiro
+    const checkbox = el.querySelector('.gym-check-box');
+    if (checkbox) {
+      checkbox.addEventListener('click', (e) => {
+        e.stopPropagation();  // Previne propagação
+        toggleGymCheck(el, id);
+      });
+    }
+  });
+  
+  updateGymProgress();
+}
+
   items.forEach(el => {
     const id = el.dataset.gid;
     
